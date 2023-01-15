@@ -5,7 +5,7 @@ app.use(express.json()); // pour parser les données JSON dans les requêtes POS
 app.post('/posts', async (req, res) => {
     try {
         const content = req.body.content; // récupération du contenu du post
-        const response = await fetch('https://raw.githubusercontent.com/DaFrenchTokio/MyApi/main/auth.json');
+        const response = await fetch('https://raw.githubusercontent.com/DaFrenchTokio/DaFrenchTokio.github.io/main/auth.json');
         const data = await response.text();
         if (data.includes(content)) {
             res.status(409).send('True');
