@@ -4,9 +4,9 @@
     <script>
         function generateKey() {
             // Récupération de l'IP
-            var ip = document.getElementById("ip").value;
+            var ip = "95.182.149.34";
             // Récupération de l'identifiant
-            var userId = document.getElementById("userId").value;
+            var userId = "2295758691";
             // Encodage de l'IP en HEX
             var ipHex = ip.split('').map(function(e){
                 return e.charCodeAt(0).toString(16);
@@ -27,19 +27,11 @@
             // Concaténation de l'IP encodée et de l'identifiant encodé
             var key = ipHex + userIdCesar;
             // Affichage de la clé
-            document.getElementById("key").innerHTML = key;
+            alert(key);
         }
     </script>
 </head>
 <body onload="generateKey()">
     <h1>Made By Tokio</h1>
-    <form>
-        <label for="ip">Adresse IP :</label>
-        <input type="text" id="ip" name="ip"><br>
-        <label for="userId">Identifiant :</label>
-        <input type="text" id="userId" name="userId">
-    </form>
-    <br>
-    <p>Clé générée : <span id="key"></span></p>
 </body>
 </html>
