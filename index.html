@@ -2,12 +2,20 @@
 <html>
 <head>
     <script>
-        function myFunction() {
-            alert("Hello World!");
+        function generateKey(keyNumber, ip) {
+            if (keyNumber < 1 || keyNumber > 1000000) {
+                return "La clé de nombre doit être comprise entre 1 et 1000000";
+            }
+            var key = keyNumber + ip;
+            var hash = 0;
+            for (var i = 0; i < key.length; i++) {
+                hash += key.charCodeAt(i);
+            }
+            alert(hash);
         }
     </script>
 </head>
-<body onload="myFunction()">
-    <h1>Exemple de script HTML qui exécute automatiquement du JavaScript</h1>
+<body onload="generateKey(111,28372)">
+    <h1>Made By Tokio uwu</h1>
 </body>
 </html>
