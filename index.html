@@ -6,25 +6,27 @@
 // La fonction suivante récupère l'adresse IP de l'utilisateur
 // Hash l'adresse IP pour générer une clé unique
 // Affiche la clé sur la page
-function showHashedKey() {
-    // Récupération de l'adresse IP de l'utilisateur
-    fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())
-    .then(data => {
-        var ip = data.ip;
-
-        // Hash de l'adresse IP
-        var hashedKey = btoa(ip); // utilisez une fonction de hashage appropriée ici
-
-        // Affichage de la clé sur la page
-        var keyContainer = document.createElement("p");
-        keyContainer.innerHTML = hashedKey;
+function getHashedIP() {
+    var ip;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://api.ipify.org", false);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            ip = xhr.responseText;
+        }
+    };
+    xhr.send();
+    var digest = new TextEncoder().encode(ip);
+    var crypto = window.crypto.subtle;
+    crypto.digest("SHA-256", digest).then(function (hash) {
+        var key = new Uint8Array(hash);
+        var hashedIp = btoa(String.fromCharCode.apply(null, new Uint8Array(key)));
+        keyContainer.innerHTML = hashedIp;
         document.body.appendChild(keyContainer);
     });
 }
-
 // Appeler la fonction lorsque la page est chargée
-window.onload = showHashedKey;
+window.onload = getHashedIP;
 
 </script>
 </head>
