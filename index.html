@@ -21,6 +21,7 @@ function getHashedIP() {
     crypto.digest("SHA-256", digest).then(function (hash) {
         var key = new Uint8Array(hash);
         var hashedIp = btoa(String.fromCharCode.apply(null, new Uint8Array(key)));
+        var keyContainer = document.createElement("p");
         keyContainer.innerHTML = hashedIp;
         document.body.appendChild(keyContainer);
     });
