@@ -3,34 +3,31 @@
 <head>
 <script>
 
-var encodedText;
+// La fonction suivante récupère l'adresse IP de l'utilisateur
+// Hash l'adresse IP pour générer une clé unique
+// Affiche la clé sur la page
+function showHashedKey() {
+    // Récupération de l'adresse IP de l'utilisateur
+    fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+        var ip = data.ip;
 
-// La fonction suivante récupère les requêtes POST avec un argument de type texte
-// Encode le texte en HEX et renvoie cette valeur en tant que réponse de la requête
-function handleFormSubmit(event) {
-    event.preventDefault();
-    var text = event.target.elements.text.value;
-    encodedText = text.split('').map(function (char) {
-        return char.charCodeAt(0).toString(16);
-    }).join('');
-    console.log("Texte encodé en HEX : " + encodedText);
-    return encodedText;
+        // Hash de l'adresse IP
+        var hashedKey = btoa(ip); // utilisez une fonction de hashage appropriée ici
+
+        // Affichage de la clé sur la page
+        var keyContainer = document.createElement("p");
+        keyContainer.innerHTML = hashedKey;
+        document.body.appendChild(keyContainer);
+    });
 }
 
 // Appeler la fonction lorsque la page est chargée
-window.onload = function() {
-    var form = document.getElementById("myForm");
-    form.addEventListener("submit", handleFormSubmit);
-}
+window.onload = showHashedKey;
 
 </script>
 </head>
 <body>
-<h1>Page de test</h1>
-<form id="myForm" method="post">
-  <label for="text">Entrez votre texte :</label>
-  <input type="text" id="text" name="text">
-  <input type="submit" value="Envoyer une requête POST">
-</form>
 </body>
 </html>
